@@ -7,3 +7,12 @@
 - Listen to port 3000
 - Write request handlers for /test, /hello
 - Install nodemon and update package.json script
+
+- Initialize git
+- .gitignore
+- Create a remote repo in github
+- Push all your code in remote repo
+- Play with routes and route extensions ex: /test, /hello, /hello/2
+- Order of the route matter a lot
+- Install Postman app and make a workspace/collection => test API call
+- Write logic to handle GET, POST, PATCH and DELETE API Calls and test them on Postman
