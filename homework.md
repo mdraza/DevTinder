@@ -25,3 +25,8 @@
 - next()
 - next function and errors along with res.send()
 - aap.use("/routes", rH1, [rH2, rH3], rH4, rH5)
+- What is Middleware? Why do we need it?
+- How express.js basically handles requests behiend the scene?
+- Difference between app.use & app.all
+- Write a dummy middleware for admin
+- Write a dummy middleware for user
