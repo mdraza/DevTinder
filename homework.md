@@ -20,3 +20,8 @@
 - Use of regex in routes /a/, /.*fly$/
 - Reading the Query Params in the routes
 - Reading the Dynamic routes
+
+- Create multiple route handler, Play with the code
+- next()
+- next function and errors along with res.send()
+- aap.use("/routes", rH1, [rH2, rH3], rH4, rH5)
