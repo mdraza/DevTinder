@@ -6,7 +6,14 @@ const port = 3000;
 
 
 app.get("/user", (req, res) => {
-    res.send({fname: "Umamah", lname: "Raza"})
+    console.log(req.query);
+    const userData = req.query;
+    res.send(userData);
+})
+
+app.get("/users/:userid/:name/:city", (req, res) => {
+    console.log(req.params);
+    res.send(req.params);
 })
 
 app.post("/user", (req, res) => {
