@@ -30,3 +30,8 @@
 - Difference between app.use & app.all
 - Write a dummy middleware for admin
 - Write a dummy middleware for user
+
+- Create afree cluster on MongoDB official website
+- Install mongoose library
+- Connect your application to the Database "connection-url/devTinder"
+- Call the connectDB function and connect to database before starting application on port
