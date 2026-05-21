@@ -54,7 +54,11 @@ const userSchema = new Schema(
     },
     skills: {
       type: [String],
-      maxLength: 5
+      validate: (value) => {
+        if(value.length > 5){
+            throw new Error("Not allowed more than 3 skills")
+        }
+      }
     },
   },
   {
