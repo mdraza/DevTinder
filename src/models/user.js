@@ -1,28 +1,66 @@
 const mongoose = require("mongoose");
 
-const {Schema} = mongoose;
+const { Schema } = mongoose;
 
-const userSchema = new Schema({
+const userSchema = new Schema(
+  {
     firstName: {
-        type: String
+      type: String,
+      required: true,
+      trim: true,
+      minLength: 4,
+      maxLength: 30,
     },
     lastName: {
-        type: String
+      type: String,
+      trim: true,
+      minLength: 4,
+      maxLength: 20,
     },
     emailId: {
-        type: String
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+      trim: true,
+      maxLength: 20
     },
-    password:  {
-        type: String
+    password: {
+      type: String,
+      required: true,
     },
     age: {
-        type: Number
+      type: Number,
+      min: 5,
+      max: 50
     },
     gender: {
-        type: String
+      type: String,
+      validate: (value) => {
+        if (!["male", "female"].includes(value)) {
+          throw new Error("Gender data is not valid");
+        }
+      },
     },
-    skills: ["HTML", "CSS"]
-})
+    photoUrl: {
+      type: String,
+      default: "https://placehold.net/avatar.png",
+    },
+    about: {
+      type: String,
+      default: "Hi, this is a default about the user",
+      trim: true,
+      maxLength: 100
+    },
+    skills: {
+      type: [String],
+      maxLength: 5
+    },
+  },
+  {
+    timestamps: true,
+  },
+);
 
 const User = mongoose.model("User", userSchema);
 

@@ -45,3 +45,17 @@
 - Make your signup API dynamic  to receive the data from the end user
 - API - get user by email ID
 - API - Feed API - GET /feed - get all te users from the database
+- API - Get user by ID
+- Create a Delete user API
+- Difference between PATCH & PUT
+- API - update a user
+- Explore the Mongoose documentation for Model methods
+- What are options in a  Model.findOneAndUpdate method, explore more about it
+- API - Update the user with emailID
+
+- Explore SchemaType options from the documentation
+- Add required, unique, lowercase, trim, min, max, minLength & maxLength
+- Add default
+- Create a custom validation function for Gender
+- Improve the Db Schema - Pul all the appropiate validations on each field in Schema
+- Add the timestamps to the User Schema

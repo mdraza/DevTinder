@@ -11,7 +11,7 @@ app.post("/signup", async (req, res) => {
 
   try {
     await user.save();
-    res.json({message: "User data saved successfully!"});
+    res.json({ message: "User data saved successfully!" });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -20,7 +20,9 @@ app.post("/signup", async (req, res) => {
 app.get("/user", async (req, res) => {
   try {
     const emailId = req.body.emailId;
-    const users = await User.findOne({emailId: emailId});
+    const id = req.body._id;
+    const users = await User.findById(id);
+    // const users = await User.findOne({emailId: emailId});
     // const users = await User.find({ emailId });
 
     if (users.length === 0) {
@@ -34,26 +36,46 @@ app.get("/user", async (req, res) => {
 });
 
 app.get("/feed", async (req, res) => {
-    try {
-        const users = await User.find({});
+  try {
+    const users = await User.find({});
 
-        if(users.length === 0) {
-            res.status(404).json({message: "User record not found!"})
-        } else {
-            res.json({message: "User data fetched successfully", data: users});
-        }
-    } catch (error) {
-        res.status(400).json({ message: error.message });
+    if (users.length === 0) {
+      res.status(404).json({ message: "User record not found!" });
+    } else {
+      res.json({ message: "User data fetched successfully", data: users });
     }
-})
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
 
+app.delete("/user", async (req, res) => {
+  try {
+    const id = req.body._id;
+    await User.findByIdAndDelete({ _id: id });
 
+    res.send("User deleted successfully");
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
 
+app.patch("/user", async (req, res) => {
+  try {
+    const id = req.body._id;
+    // const emailId = req.body.emailId;
+    // const user = await User.findOneAndUpdate({emailId: emailId}, req.body, {returnDocument: "before"});
+    const user = await User.findByIdAndUpdate(id, req.body, {
+      returnDocument: "before",
+      runValidators: true
+    });
+    console.log(user);
 
-
-
-
-
+    res.send("User update successfully!");
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
 
 connectDB()
   .then(() => {
