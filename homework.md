@@ -35,3 +35,13 @@
 - Install mongoose library
 - Connect your application to the Database "connection-url/devTinder"
 - Call the connectDB function and connect to database before starting application on port
+- Create auserSchema & user model
+- Create POST /signup API to add data to database
+- Push some documents using API calls from postman
+- Error handling using try & catch
+
+- JS object vs JSON (difference)
+- Add the express.json middleware to your app
+- Make your signup API dynamic  to receive the data from the end user
+- API - get user by email ID
+- API - Feed API - GET /feed - get all te users from the database
