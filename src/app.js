@@ -16,7 +16,7 @@ app.post("/signup", async (req, res) => {
     validateSignupData(req);
 
     const { firstName, lastName, emailId, password } = req.body;
-    
+
     // Encrypted hash password
     const encryptedPassword = await bcrypt.hash(password, 10);
     console.log(encryptedPassword);
@@ -34,6 +34,32 @@ app.post("/signup", async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
+
+app.post("/login", async (req, res) => {
+    try {
+        const {emailId, password} = req.body;
+        const user = await User.findOne({emailId});
+        console.log(user);
+
+        if(!user){
+            throw new Error("Invalid credential, please enter correct emailId or password!")
+        }
+
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        console.log(isPasswordValid);
+
+        if(!isPasswordValid){
+            throw new Error("Invalid credential, please enter correct emailId or password!")
+        }
+
+        res.send("Logined successfully")
+    } catch (error) {
+        res.status(400).json({ message: error.message })
+    }
+})
+
+
+
 
 app.get("/user", async (req, res) => {
   try {
