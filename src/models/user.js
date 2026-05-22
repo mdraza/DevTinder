@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+var validator = require('validator');
 
 const { Schema } = mongoose;
 
@@ -23,11 +24,21 @@ const userSchema = new Schema(
       unique: true,
       lowercase: true,
       trim: true,
-      maxLength: 20
+      maxLength: 30,
+      validate: (value) => {
+        if(!validator.isEmail(value)) {
+            throw new Error("Invalid email ID")
+        }
+      }
     },
     password: {
       type: String,
       required: true,
+      validate: (value) => {
+        if(!validator.isStrongPassword(value)){
+            throw new Error("Invalid password, please enter mix of number, uppeercase, lowercase & special char.")
+        }
+      }
     },
     age: {
       type: Number,
@@ -45,6 +56,11 @@ const userSchema = new Schema(
     photoUrl: {
       type: String,
       default: "https://placehold.net/avatar.png",
+      validate: (value) => {
+        if(!validator.isURL(value)){
+            throw new Error("Invalid photo URL!" + value)
+        }
+      }
     },
     about: {
       type: String,

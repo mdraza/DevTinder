@@ -62,3 +62,5 @@
 
 - Add API label validation on PATCH request & Signup POST API
 - DATA Sanitization - Add API validation for each fields
+- Install validator
+- Explore validator library function and use validator function for password, email and photoUrl
