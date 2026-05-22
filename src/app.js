@@ -3,15 +3,17 @@ const { connectDB } = require("./config/database");
 const User = require("./models/user");
 const bcrypt = require("bcrypt");
 const { validateSignupData } = require("./utils/validation");
+const cookieParser = require("cookie-parser");
+var jwt = require("jsonwebtoken");
 
 const app = express();
 const port = 3000;
+
 app.use(express.json());
+app.use(cookieParser());
 
 app.post("/signup", async (req, res) => {
   try {
-    
-
     // Validate the data
     validateSignupData(req);
 
@@ -36,30 +38,58 @@ app.post("/signup", async (req, res) => {
 });
 
 app.post("/login", async (req, res) => {
-    try {
-        const {emailId, password} = req.body;
-        const user = await User.findOne({emailId});
-        console.log(user);
+  try {
+    const { emailId, password } = req.body;
+    const user = await User.findOne({ emailId });
+    console.log(user);
 
-        if(!user){
-            throw new Error("Invalid credential, please enter correct emailId or password!")
-        }
-
-        const isPasswordValid = await bcrypt.compare(password, user.password);
-        console.log(isPasswordValid);
-
-        if(!isPasswordValid){
-            throw new Error("Invalid credential, please enter correct emailId or password!")
-        }
-
-        res.send("Logined successfully")
-    } catch (error) {
-        res.status(400).json({ message: error.message })
+    if (!user) {
+      throw new Error(
+        "Invalid credential, please enter correct emailId or password!",
+      );
     }
-})
 
+    const isPasswordValid = await bcrypt.compare(password, user.password);
 
+    if (isPasswordValid) {
+      const token = jwt.sign({ _id: user._id }, "Mdraza@123");
+      console.log(token);
 
+      res.cookie("token", token);
+      res.send("Logined successfully");
+    } else {
+      throw new Error(
+        "Invalid credential, please enter correct emailId or password!",
+      );
+    }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+app.get("/profile", async (req, res) => {
+  try {
+    const cookie = req.cookies;
+    const { token } = cookie;
+
+    if(!token){
+        throw new Error("Please login!")
+    }
+
+    const validateUser = jwt.verify(token, "Mdraza@123");
+
+    const {_id} = validateUser;
+    const user = await User.findById(_id);
+
+    if(!user){
+        throw new Error("Invalid user, please login!")
+    }
+
+    res.json({message: "Profile data fetched successfully!", data: user});
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
 
 app.get("/user", async (req, res) => {
   try {
