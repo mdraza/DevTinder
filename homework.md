@@ -84,3 +84,15 @@
 - Add the userAuth middleware in /profile API and a new /sendConnectionRequest API
 - Create userSchema method  to getJWT()
 - Create userSchema method to comparePassword(passwordInputByUser)
+
+- Explore Tinder API
+- Create a list of all APIs
+- Group multiple routes into a respective routes
+- Read documentation for express.Router
+- Create a route folder for managing auth, profile and request routes
+- Create authRouter, profileRouter, requestRouter
+- Import these routers in app.js
+- Create POST /logout API
+- Create PATCH /profile/edit API
+- Create PATCH /profile/password API ==> forgot password API
+- Make sure to validate all data en every POST, PATCH APIs
