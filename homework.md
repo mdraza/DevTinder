@@ -96,3 +96,15 @@
 - Create PATCH /profile/edit API
 - Create PATCH /profile/password API ==> forgot password API
 - Make sure to validate all data en every POST, PATCH APIs
+
+- Create a ConnetionRequest Schema
+- Send Connection request API
+- Proper validation of Data
+- Think about all corder cases
+- Schema.pre("save", function(){})
+- $or and $and query in mongoose
+- Read more about "index" in mongoDB
+- Why do we need to add "index";
+- What are trhe advantages & disAdvantage to use "index"
+
+- Read more about $or, $not... from https://www.mongodb.com/docs/manual/reference/operator/query/and/
